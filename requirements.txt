@@ -1,0 +1,8 @@
+ipython
+mac_vendor_lookup
+requests
+colorama
+pyperclip
+unidecode
+win10toast
+language-tool-python
