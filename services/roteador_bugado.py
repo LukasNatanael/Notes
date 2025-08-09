@@ -18,7 +18,7 @@ def roteador_bugado( notes:dict = {}, extra_notes:list = [] ):
         extra_infos = Informations()
 
         Dados = namedtuple( 'Dados_Serviço', [ 'cadastro', 'contato', 'taxa', 'local_atendimento' ] )
-        notes_data = Dados( notes.get('Nome'), notes.get('Contato'))
+        notes_data = Dados( notes.get('Nome'), notes.get('Contato'), notes.get('taxa'), notes.get('local_atendimento'))
 
         infos.insert_division('Sem acesso - Roteador bugado', color=red_text)
 
@@ -27,12 +27,12 @@ def roteador_bugado( notes:dict = {}, extra_notes:list = [] ):
         
         contato  = notes_data.contato or Validate.ask('Contato: ', 'Por favor, informe o contato do cliente!', infos)
         contato = Formatar.contato(contato)
-        infos.write(f'Contato: {contato}')
+        infos.write(f'Contato:  {contato}')
         
         rede   = Validate.confirm('Nome da rede aparece normalmente', infos)
         rede = 'Nome da rede aparece normalmente' if rede else 'Nome da rede não aparece'
 
-        infos.write(f'Wi-Fi: {rede}', new_line=1)
+        infos.write(f'Wi-Fi:    {rede.replace("Nome da rede ", "").capitalize()}', new_line=1)
         extra_infos.new_line()
         extra_infos.insert_division()
 
@@ -40,7 +40,7 @@ def roteador_bugado( notes:dict = {}, extra_notes:list = [] ):
         online = 'ONU consta como ONLINE' if online else 'ONU consta como OFFLINE'
 
         roteador = Device.interactive( return_data=True )
-        roteador = roteador.tipo + roteador.modelo
+        roteador = roteador.type + roteador.model
 
         infos.write(f'Roteador: {roteador}')
         infos.new_line()
@@ -70,8 +70,10 @@ def roteador_bugado( notes:dict = {}, extra_notes:list = [] ):
 
         infos.show()
         copy(atendimento)
+        relatorios.sucess_message()
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(e)
+        input()
 
