@@ -86,7 +86,7 @@ def fhtt(notes:dict = {}, extra_notes:list = []):
             infos.write('Taxa: R$100,00', jump_line=False)
             dividido_taxa = Validate.confirm('Valor dividido em 2x', infos)
 
-            dividido_taxa = ' dividido em 2x' if dividido_taxa else ''
+            dividido_taxa = 'dividido em 2x' if dividido_taxa else ''
             infos.write(f'{dividido_taxa}')
 
             taxa_serviço += f'{dividido_taxa}.'
