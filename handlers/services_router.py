@@ -4,7 +4,6 @@ from core.Formatar      import Formatar
 
 def router( service_name:str, service_data:str, notes:dict, extra_notes:list, infos_notes:Informations ) -> None:
 
-    type_service = service_name
     infos        = infos_notes
     alarmes      = [ 'dying', 'die', 'dying_gasp', 'los', 'link_loss', 'pon', 'link_los', 'link los' ]
 
@@ -17,7 +16,7 @@ def router( service_name:str, service_data:str, notes:dict, extra_notes:list, in
         'tuju': 'Tujuguaba - Conchal'
     }
 
-    type_service = type_service.lower()
+    type_service = service_name.lower()
     data_service = service_data.lower()
 
     if type_service == 'nome':
@@ -104,10 +103,10 @@ def router( service_name:str, service_data:str, notes:dict, extra_notes:list, in
 
     if data_service in [ 'fhtt', 'off', *alarmes ]:
         data_service = data_service.upper()
-    elif data_service in [ 'cidade' ]:
+    elif type_service in [ 'cidade' ]:
         data_service = f'{data_service[0].upper()}{data_service[1:]}'
     else:
-        data_service = data_service
+        data_service = service_data
 
 
     if type_service not in [ 'nome', 'contato', 'cidade', 'chlnet' ]:
