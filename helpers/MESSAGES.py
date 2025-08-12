@@ -12,8 +12,10 @@ from services.messages.pagamento_invertido import invertido
 from services.messages.pagamento           import pagamento
 from services.messages.suspensão           import suspensão
 from services.messages.pagamento_CNPJ      import cnpj
+from services.messages.prorata             import prorata
 
 MESSAGES = {
+    'prorata':       lambda: prorata(),
     'acordo':        lambda: acordo(),
     'cep':           lambda: cep(),
     'multa':         lambda: multa(),
