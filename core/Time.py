@@ -46,6 +46,13 @@ class Time:
         hora = hora_base or datetime.now()
         hora += timedelta(hours=offset_horas)
 
-        if incluir_segundos:
-            return hora.strftime("%H:%M:%S")
-        return hora.strftime("%H:%M")
+        Horario = namedtuple( 'Hora', [ 'full_time', 'horas', 'minutos', 'segundos'])
+        
+        horario = Horario(
+            hora.strftime("%H:%M:%S"),
+            hora.strftime("%H"),
+            hora.strftime("%M"),
+            hora.strftime("%S")
+        )
+
+        return horario
