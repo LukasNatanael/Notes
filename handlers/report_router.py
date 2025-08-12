@@ -28,7 +28,8 @@ def router(report_name: str, notes: dict, extra_notes: list):
         'atendimento_generico': lambda: atendimento_generico(notes, extra_notes),  # fallback
     }
 
-    service = report_name.lower() if report_name else report_name
+    service = report_name.lower() if report_name != None else report_name
+
 
     alarmes = [ 'dying_gasp', 'link_loss', 'los', 'pon piscando' ]
 
