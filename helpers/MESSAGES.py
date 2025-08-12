@@ -8,9 +8,10 @@ from helpers.comparar import comparar
 from services.messages.falta_contato       import falta_contato
 from services.messages.agendamento         import agendamento
 from services.messages.desbloqueio         import desbloqueio
-from services.messages.pagamento_invertido import pagamento_invertido
+from services.messages.pagamento_invertido import invertido
 from services.messages.pagamento           import pagamento
 from services.messages.suspensão           import suspensão
+from services.messages.pagamento_CNPJ      import cnpj
 
 MESSAGES = {
     'acordo':        lambda: acordo(),
@@ -23,7 +24,8 @@ MESSAGES = {
 
     'agendado':      lambda: agendamento(),
     'desbloqueio':   lambda: desbloqueio(),
-    'invertido':     lambda: pagamento_invertido(),
+    'invertido':     lambda: invertido(),
     'pagamento':     lambda: pagamento(),
     'suspensão':     lambda: suspensão(),
+    'cnpj':          lambda: cnpj(),
 }
