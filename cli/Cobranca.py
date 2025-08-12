@@ -1,4 +1,5 @@
-class Cobrança:
+from helpers.colored_text import colored_text
+class Cobranca:
 
     def ultimo_cliente(self):
         return self.dados_clientes[-1]
@@ -104,7 +105,7 @@ class Cobrança:
 
                     infos_data = str(infos) + str(extra_infos)
 
-                    cliente_atendeu = Validate.ask('Cliente atendeu', message_screen=infos_data, choices=['s', 'n', '00', '77', '88'])
+                    cliente_atendeu = Validate.ask(f'Cliente atendeu [{colored_text("s|n", "green")}]', message_screen=infos_data, choices=['s', 'n', '00', '77', '88'])
 
                     não_precisa_ligar = cliente_atendeu
                     cliente_atendeu = True  if cliente_atendeu == 's' else cliente_atendeu

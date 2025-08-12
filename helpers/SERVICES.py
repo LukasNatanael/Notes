@@ -12,7 +12,7 @@ from services.atendimento_generico import atendimento_generico
 
 from helpers.mac                   import mac
 
-from cli.Cobrança                  import Cobrança
+from cli.Cobranca                  import Cobranca
 from cli.Notes                     import Notes
 from core.Limpar                   import Limpar
 
@@ -23,7 +23,7 @@ def limpar():
     Limpar()
 
 def cobrança():
-    Cobrança()
+    Cobranca()
 
 SERVICES = {
     'cobrança':             lambda: cobrança(),
