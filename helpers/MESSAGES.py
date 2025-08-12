@@ -10,7 +10,7 @@ from services.messages.agendamento         import agendamento
 from services.messages.desbloqueio         import desbloqueio
 from services.messages.pagamento_invertido import invertido
 from services.messages.pagamento           import pagamento
-from services.messages.suspensão           import suspensão
+from services.messages.suspensao           import suspensão
 from services.messages.pagamento_CNPJ      import cnpj
 from services.messages.prorata             import prorata
 
