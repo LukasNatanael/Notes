@@ -10,7 +10,7 @@ def acordo():
         infos = Informations()
         valor_equipamento = 'R$600,00'
 
-        infos.insert_division('Acordo', color=green_text)
+        infos.insert_division('Negociação de faturas', color=green_text)
 
         qtd_faturas = Validate.ask('Quantidade de mensalidades em aberto', 'Por favor, informe a quantidade de mensalidades em aberto!', infos)
         infos.write(f'Mensalidades em aberto: {qtd_faturas}', new_line=1)
@@ -36,5 +36,6 @@ def acordo():
         copy(message)
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(f'Erro: {e}')
+        input()
