@@ -25,12 +25,12 @@ def router( service_name:str, service_data:str, notes:dict, extra_notes:list, in
 
     elif type_service == 'contato':
         contato = data_service
-        data_service =  Formatar.contato(contato)
+        service_data =  Formatar.contato(contato)
 
     elif type_service == 'cidade':
         cidade = data_service
         if cidade in cities.keys():
-            data_service = cities[cidade]
+            service_data = cities[cidade]
 
     elif data_service in [ *alarmes, 'sem acesso' ]:
         alarme = Validate.ask('Alarme em sistema/aparelho', message_screen=infos ,choices=alarmes) if type_service == 'sem acesso' else data_service
@@ -102,12 +102,11 @@ def router( service_name:str, service_data:str, notes:dict, extra_notes:list, in
         notes['taxa_serviço']      = taxa
 
     if data_service in [ 'fhtt', 'off', *alarmes ]:
-        data_service = data_service.upper()
+        data_service = service_data.upper()
     elif type_service in [ 'cidade' ]:
-        data_service = f'{data_service[0].upper()}{data_service[1:]}'
+        data_service = f'{service_data[0].upper()}{service_data[1:]}'
     else:
         data_service = service_data
-
 
     if type_service not in [ 'nome', 'contato', 'cidade', 'chlnet' ]:
         notes['Serviço'] = f'{data_service[0].upper()}{data_service[1:]}'
