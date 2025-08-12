@@ -135,5 +135,6 @@ def troca_plano( notes:dict = {}, extra_notes:list = [] ):
 
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(f'Erro: {e}')
+        input()

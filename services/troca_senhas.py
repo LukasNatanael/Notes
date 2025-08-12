@@ -72,5 +72,6 @@ def senha_wifi(notes:dict):
             relatorios.sucess_message()
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(f'Erro: {e}')
+        input()

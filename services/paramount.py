@@ -8,7 +8,7 @@ from collections        import namedtuple
 
 green_text = Color( content_color='green' )
 
-def paramount(notes:dict):
+def paramount(notes:dict={}):
     try:
         Dados = namedtuple('Dados_Serviço', [ 'cadastro', 'contato', 'email' ])
         client_data = Dados( notes.get('Nome'), notes.get('Contato'), notes.get('email') )
@@ -18,11 +18,9 @@ def paramount(notes:dict):
 
         if client_data.cadastro:
             infos.write(f'Cadastro: {client_data.cadastro}', new_line=1)
-        else:
-            infos.new_line()
 
         email   = client_data.email or Validate.ask('Informe o e-mail do cliente', 'Por favor, informe e-mail do cliente!', infos).lower()
-        infos.write(f'E-mail:   {email}')
+        infos.write(f'E-mail:   {email}', new_line=1)
 
         contato = client_data.contato or Validate.ask('Informe o contato do cliente', 'Por favor, informe contato do cliente!', infos)
         contato = Formatar.contato(contato)
@@ -31,7 +29,7 @@ def paramount(notes:dict):
         paramount_ativo = Validate.confirm('Cliente já possui Paramount+ ativo', infos)
 
         if paramount_ativo:
-            message = f'''Pelo que verifiquei, *já possui uma conta ativa em seu cadastro* com o e-mail: {email} cadastrado.
+            message = f'''Pelo que verifiquei, *já possui uma conta ativa em seu cadastro* com o *e-mail: {email}* cadastrado.
 Caso tenha perdido acesso a conta, *peço que tente recuperar seus dados diretamente pelo site da Watch Brasil ou Paramount+*
 
 Basta acessar algum dos sites abaixo:
@@ -61,6 +59,7 @@ Basta inserir seu e-mail na caixa de texto e aguardar até que um e-mail de recu
             relatorios.sucess_message()
     except KeyboardInterrupt:
         relatorios.error_message()
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(f'Erro: {e}')
+        input()
 

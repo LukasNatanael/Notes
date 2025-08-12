@@ -61,6 +61,7 @@ def cep(cod:str='', msg_screen:str='', error:str='', retornar:bool=False, notes:
             return error
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(f'Erro: {e}')
+        input()
     

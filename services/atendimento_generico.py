@@ -24,7 +24,7 @@ def atendimento_generico( notes:dict, extra_notes:list ):
 
             if OS:
                 contato = notes.get('Contato') or Formatar.contato(Validate.ask('Contato', 'Por favor, informe o contato do cliente!', infos))
-                atendimento = f'Contato: {contato} \n{atendimento}'
+                atendimento = f'Contato: {contato} \n{atendimento}. Verificar no local por gentileza. Ligar com antecedência.'
 
             infos.write( atendimento, new_line=1 )
             infos.show()
@@ -35,5 +35,6 @@ def atendimento_generico( notes:dict, extra_notes:list ):
                 extra_notes.append('Atendimento gerado')
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(f'Erro: {e}')
+        input()

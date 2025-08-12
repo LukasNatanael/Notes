@@ -5,7 +5,7 @@ from pyperclip          import copy
 green_text = Color(content_color='green')
 
 
-def pagamento_invertido():
+def invertido():
     try:
         infos = Informations()
         infos.insert_division('Pagamento invertido', color=green_text)
@@ -24,5 +24,6 @@ def pagamento_invertido():
         print(message)
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(f'Erro: {e}')
+        input()

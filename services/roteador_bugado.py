@@ -74,6 +74,5 @@ def roteador_bugado( notes:dict = {}, extra_notes:list = [] ):
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
     except Exception as e:
-        relatorios.error_message(e)
+        relatorios.error_message(f'Erro: {e}')
         input()
-

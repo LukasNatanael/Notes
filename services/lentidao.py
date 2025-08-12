@@ -89,13 +89,13 @@ def lentidao(notes:dict = {}, extra_notes:list = []):
             infos.write(f'Luz ONU: {luz_ONU}')
             
         aparelho_autenticando = notes_data.dispositivo
-        dispositivo = aparelho_autenticando
+        dispositivo  = aparelho_autenticando
         configuração = notes_data.configuração
 
         if not aparelho_autenticando:
             aparelho_autenticando = Device.interactive( return_data=True )
             dispositivo  = f'{aparelho_autenticando.type}{aparelho_autenticando.model}'
-            dispositivo  = dispositivo.replace('Fiberhome')
+            dispositivo  = dispositivo.replace('Fiberhome', '')
             configuração = aparelho_autenticando.config
 
         infos.write(f'Autenticando: {dispositivo}'  if dispositivo else 'Autenticando: n/a')
@@ -117,7 +117,7 @@ def lentidao(notes:dict = {}, extra_notes:list = []):
         
         menu_quedas.show()
 
-        quedas = menu_quedas.choseOption[0]
+        quedas = menu_quedas.choseOption[0] - 1
         quedas = lista_quedas[quedas]
 
         infos.write(f'Quedas: {quedas}')
@@ -187,5 +187,6 @@ def lentidao(notes:dict = {}, extra_notes:list = []):
         relatorios.sucess_message()
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
+    except Exception as e:
+        relatorios.error_message(f'Erro: {e}')
+        input()

@@ -23,7 +23,7 @@ def los(notes:dict = {}, extra_notes:list = []):
         infos_extra.write('[ 00 ] - Não foi possível verificar', new_line=1)
 
         alarmes = { 
-            'LINK_LOS'    : 'LINK_LOS',
+            'LINK_LOSS'   : 'LINK_LOSS',
             'DYING_GASP'  : 'DYING_GASP',
 
             'LOS': 'LOS piscando',
@@ -53,7 +53,6 @@ def los(notes:dict = {}, extra_notes:list = []):
         
         infos.write(alarme)
 
-
         atendimento = (
             f'Contato: {contato} \n'
             f'Cliente entrou em contato alegando estar sem acesso à rede. '
@@ -73,6 +72,6 @@ def los(notes:dict = {}, extra_notes:list = []):
         relatorios.sucess_message()
     except KeyboardInterrupt:
         relatorios.error_message('Serviço finalizado pelo usuário')
-    except:
-        relatorios.error_message()
-
+    except Exception as e:
+        relatorios.error_message(f'Erro!\n {e}')
+        input()
