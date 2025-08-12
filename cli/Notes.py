@@ -252,7 +252,7 @@ class Notes:
         self.log_infos.show()
 
     def interactive(self):
-        main_menu_options = [ 'Inserir dados', 'Gerar relatório' ]
+        main_menu_options = [ 'Inserir dados', 'Gerar serviço', 'Gerar relatório' ]
 
         sub_menu_options  = [ 'Dados do cliente', 'Dados do equipamento', 'Dados do serviço', *EXTRA_DATA ]
 
