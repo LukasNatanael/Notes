@@ -23,14 +23,14 @@ class Device:
     def from_mac(mac: str, return_data: bool = False) -> DeviceData:
         try:
             user_input = mac
-            mac_device = mac if mac not in [ 'ax2', 'ax2s', 'ax3', 'ax3s', 'g5', 'c5'] else 'Indisponível'
+            mac_device = mac if mac not in [ 'ax2', 'ax2s', 'ax3', 'ax3s', 'g5', 'c5'] else ''
             try:
                 vendor = MacLookup().lookup(mac)
             except:
                 vendor = mac
             
             serial = ''
-            model = ''
+            model  = ''
             config = 'BRIDGE'
 
             if user_input.lower() in ['ax2', 'ax2s', 'ax3', 'ax3s']:
@@ -38,7 +38,7 @@ class Device:
                 vendor = 'Huawei'
 
             elif user_input.lower() in ['g5', 'c5']:
-                model = user_input.upper()
+                model  = user_input.upper()
                 vendor = 'TP-LINK'
 
             elif 'Huawei' in vendor:
@@ -46,7 +46,7 @@ class Device:
             elif 'tp-link' in vendor.lower():
                 vendor = 'TP-LINK'
             elif 'Fiberhome' in vendor:
-                model = 'Fiberhome'
+                model  = 'Fiberhome'
                 vendor = 'ONU'
                 config = 'PPPOE'
                 serial = Device.extract_serial(mac)
