@@ -1,9 +1,57 @@
-from helpers.input_multiline import input_multiline
+from   core.Informations       import Informations
+from   helpers.input_multiline import input_multiline
+from   pyperclip               import copy
+import string
+import re
+
+infos = Informations()
 
 class Limpar:
 
+    @staticmethod
+    def personalizado(texto: str, remover_digitos: bool = False, remover_letras: bool = False, remover_especiais: bool = False, remover_espacos: bool = False, remover_quebras: bool = False, strict: bool = False) -> str:
+        """
+        Remove partes específicas do texto conforme parâmetros.
+
+        Args:
+            texto: texto de entrada
+            remover_digitos: remove números (0-9)
+            remover_letras: remove letras (a-zA-Z)
+            remover_especiais: remove pontuação e símbolos
+            remover_espacos: remove espaços simples ( )
+            remover_quebras: remove \n, \r e tabs (\t)
+
+        Returns:
+            Texto modificado
+        """
+        resultado = texto
+
+
+        if strict:
+            # Apenas letras e dígitos
+            resultado = ''.join([c for c in resultado if c.isalnum()])
+            return resultado
+        
+        if remover_digitos:
+            resultado = ''.join([c for c in resultado if not c.isdigit()])
+
+        if remover_letras:
+            resultado = ''.join([c for c in resultado if not c.isalpha()])
+
+        if remover_especiais:
+            permitidos = string.ascii_letters + string.digits + ' \n\r\t'
+            resultado = ''.join([c for c in resultado if c in permitidos])
+
+        if remover_espacos:
+            resultado = resultado.replace(' ', '')
+
+        if remover_quebras:
+            resultado = resultado.replace('\n', '').replace('\r', '').replace('\t', '')
+
+        return resultado
+
+
     def __init__(self,txt=''):
-        from pyperclip import copy
 
         self.cities = {
             'mg'   : 'Mogi Guaçu',
@@ -18,7 +66,9 @@ class Limpar:
             'eng'  : 'Engenheiro Coelho',
             'eng. coelho'        : 'Engenheiro Coelho',
             'engenheiro coelho'  : 'Engenheiro Coelho',
+            
             'chl'     : 'Conchal',
+
             'ara'    : 'Araras',
             'araras' : 'Araras',
         }
@@ -27,20 +77,17 @@ class Limpar:
             self.original_txt = txt.split()
             return self.getFullData(txt)
         else:
-            from os import system
-            system('cls')
-            
             txt = input_multiline('Informe os dados que deseja limpar: ')
             self.original_txt = txt.split()
 
-            system('cls')
-            
+            infos.clear_screen()
+
             fullData = self.getFullData(txt)
             name     = self.getName(txt)
             document = self.getDocument(txt)
             city     = self.getCity(txt) # deixar minusculo caso não funcione
 
-            system('cls')
+            infos.clear_screen()
             print()
             if fullData:
                 print(f'{fullData}\n')
@@ -55,13 +102,8 @@ class Limpar:
                 city = self.cities[city['city'].lower()]
                 print(f'Cidade: \n{city}')
 
-    def clear(self):
-        from os import system
-        system('cls')
 
     def removeSpecialChars(self, txt):
-        import string
-
         txt = self.transformOneLineStr(txt)
         if txt:
             for punctuation in string.punctuation: txt = txt.replace( punctuation, '').strip()
@@ -69,8 +111,6 @@ class Limpar:
         return txt
     
     def removeTrash(self, txt):
-        import re
-
         txt = self.transformOneLineStr(txt)
 
         cod_cliente = re.findall('Cliente: \d+ - |Cliente \d+ ', txt)
@@ -102,7 +142,6 @@ class Limpar:
         return txt
 
     def getDocument(self, txt):
-        import re
 
         # funcionando
         txt = self.transformOneLineStr(txt)
@@ -188,6 +227,7 @@ class Limpar:
             index = []
             txt = txt.split()
 
+            # for content in txt:
             for id, content in enumerate(txt):
                 for k, v in self.cities.items():
 
@@ -200,7 +240,11 @@ class Limpar:
                         startIndex = txt.index(city)
                         endIndex   = startIndex + (cityLength + 1)
 
+
                         index = [ startIndex, endIndex ]
+
+                        print('Em baixo 1')
+                        print( len(txt), [startIndex, endIndex])
                 id += 1
 
 
@@ -222,7 +266,12 @@ class Limpar:
                 try:
                     startIndex = city['id'][0]
                     endIndex   = city['id'][1]
+
+                    print( txt[startIndex: endIndex]  )
+
                     txt = txt.replace(txt[startIndex: endIndex], '')
+
+                    print(txt)
                 except:
                     pass
             except:
@@ -269,8 +318,5 @@ class Limpar:
             city = self.cities[city['city'].lower()]
             fullData = f'{city} - {fullData}'
 
+
         return fullData.strip()
-
-
-def limpar():
-    Limpar()
