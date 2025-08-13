@@ -56,7 +56,7 @@ class Limpar:
         self.cities = {
             'mg'   : 'Mogi Guaçu',
             'guaçu': 'Mogi Guaçu',
-            'mogi mirim': 'Mogi Guaçu',
+            'mogi guaçu': 'Mogi Guaçu',
 
             'mm'   : 'Mogi Mirim',
             'mirim': 'Mogi Mirim',
