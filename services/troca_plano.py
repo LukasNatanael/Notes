@@ -17,14 +17,14 @@ def troca_plano( notes:dict = {}, extra_notes:list = [] ):
         planos_str         = Informations()
         meses_str          = Informations()
 
-        infos.insert_division('Alteração de plano', new_line=2, color=green_text)
+        infos.insert_division('Alteração de plano', color=green_text)
 
         planos = {
             '69.90':  'Fibra 10mb',
             '84.90':  ['Start 100mb', 'Hiper Start 100mb'],
-            '99.90':  ['Familia Mais 300mb', 'Hiper Family 700mb'],
-            '129.90': ['Cine Plus 600mb', 'Hiper Cine 1GB'],
-            '149.90': ['Infinite 1GB', 'Hiper Infinite 1GB'],
+            '99.90':  ['Familia Mais 300mb', 'Hiper Family 700mb', 'Neo Family'],
+            '129.90': ['Cine Plus 600mb', 'Hiper Cine 1GB', 'Neo Cine'],
+            '149.90': ['Infinite 1GB', 'Hiper Infinite 1GB', 'Neo Infinite'],
         }
 
         valores = [ '69.90', '84.90', '99.90', '129.90', '149.90' ] 
@@ -42,18 +42,20 @@ def troca_plano( notes:dict = {}, extra_notes:list = [] ):
         for valor in valores: valores_str.write(f'{Formatar.moeda(valor)}', jump_line=False)
         valores_str.new_line()
 
-        meses_str.new_line(1)
+        meses_str.new_line()
         meses_str.insert_division('Meses disponíveis [ numeral ou extenso ]', width=50, new_line=2, color=green_text)
 
         for cont in range(len(meses_numerais)):
             if cont == 6:
-                meses_str.new_line(1)
+                meses_str.new_line()
             meses_str.write(f'{meses_extenso[cont]}', jump_line=False)
-        meses_str.new_line(1)
+        meses_str.new_line()
 
         infos_extras_infos = infos.__str__() + valores_str.__str__()
 
         plano_antigo = Validate.ask('Valor do plano antigo: ', 'Por favor, informe o valor do plano antigo!', infos_extras_infos, valores )
+
+        planos_str.new_line()
 
         if type(planos[plano_antigo]) == str:
             plano_antigo    = Plano( planos[plano_antigo], plano_antigo )
@@ -67,7 +69,7 @@ def troca_plano( notes:dict = {}, extra_notes:list = [] ):
             plano_antigo_id = int(Validate.ask('Plano antigo: ', 'Por favor, informe o plano antigo!', infos_extras_infos, avaliable_choices ))
             plano_antigo    = Plano( planos[plano_antigo][plano_antigo_id], plano_antigo )
 
-        infos.write(f"Plano antigo │ {plano_antigo.nome}")
+        infos.write(f"Plano antigo │ {plano_antigo.nome}", new_line=1)
         infos_extras_infos = infos.__str__() + valores_str.__str__()
 
         plano_novo = Validate.ask('Valor do plano novo: ', 'Por favor, informe o valor do plano novo!', infos_extras_infos, valores )
@@ -100,7 +102,7 @@ def troca_plano( notes:dict = {}, extra_notes:list = [] ):
         infos.write(f'Comissão     │ {comissão}' if comissão else '')
 
         extra_infos.new_line()
-        extra_infos.insert_division('Vencimentos disponíveis', 'left', width=50, new_line=2)
+        extra_infos.insert_division('Vencimentos disponíveis', 'left', width=50, new_line=2, color=green_text)
         for vencimento in vencimentos: extra_infos.write( f'{vencimento}', jump_line=False)
         extra_infos.new_line()
 
@@ -117,20 +119,19 @@ def troca_plano( notes:dict = {}, extra_notes:list = [] ):
         feito_por_chat = 'chat' if feito_por_chat else 'ligação'
         infos.write(f'Feito por    │ {feito_por_chat.capitalize()}')
         
-        mensagem_atendimento = f'Cliente entrou em contato solicitando {situação.lower()} do plano {plano_antigo.nome} para o plano {plano_novo.nome}. Ciente da renovação do contrato por +12 meses, feito por {feito_por_chat}.'
+        atendimento = f'Cliente entrou em contato solicitando {situação.lower()} do plano {plano_antigo.nome} para o plano {plano_novo.nome}. Ciente da renovação do contrato por +12 meses, feito por {feito_por_chat}.'
 
         infos.new_line()
-        infos.insert_division('Atendimento', 'left', width=40, color=Color(content_color='green'))
-        
-        infos.write(mensagem_atendimento, jump_line=False)
+        infos.insert_division('Atendimento', 'left', color=green_text, width=35, new_line=1)
+        infos.write(atendimento, new_line=1, jump_line=False)
 
         relatorios.show_extra_notes(extra_notes)    
         infos.show()
         informações_extras = infos.extra_info(retornar=True)
-        mensagem_atendimento += informações_extras
+        atendimento += informações_extras
 
         infos.show()
-        copy(mensagem_atendimento)
+        copy(atendimento)
         relatorios.sucess_message()
 
     except KeyboardInterrupt:

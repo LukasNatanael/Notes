@@ -150,8 +150,9 @@ def lentidao(notes:dict = {}, extra_notes:list = []):
 
         atendimento = f'Cliente entrou em contato alegando {dados.serviço} na rede. De acordo com o mesmo isso ocorre em aparelhos {dados.dispositivos_que_apresentam_falhas}. {dados.aparelho_autenticando} {dados.luz_ONU} {dados.quedas} recentes em extrato. {procimentos}'.strip().replace('wi-fi','Wi-Fi')
 
-        infos.insert_division('Atendimento', color=green_text, new_line=1, width=50, align='left')
-        infos.write(atendimento, jump_line=False)
+        infos.new_line()
+        infos.insert_division('Atendimento', 'left', color=green_text, width=35, new_line=1)
+        infos.write(atendimento, new_line=1, jump_line=False)
 
         relatorios.show_extra_notes(extra_notes)
         infos.show( clear=False )

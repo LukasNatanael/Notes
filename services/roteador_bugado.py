@@ -49,7 +49,7 @@ def roteador_bugado( notes:dict = {}, extra_notes:list = [] ):
         atendimento = f'Cliente entrou em contato alegando estar sem acesso. {roteador} autenticando, {rede.lower()} e no sistema {online}. Cabos conectados corretamente, removido MAC, cabo da WAN, reiniciado aparelhos e conectado cabo novamente'
         
         extra_infos.clear_data()
-        extra_infos.insert_division('Atendimento', width=40, color=Color(content_color='green'))
+        extra_infos.insert_division('Atendimento', 'left', color=green_text, width=35, new_line=1)
         extra_infos.write(atendimento, new_line=1)
         resolvido = Validate.confirm('Foi resolvido', str(infos) + str(extra_infos))
         
@@ -59,7 +59,7 @@ def roteador_bugado( notes:dict = {}, extra_notes:list = [] ):
             atendimento = f'Contato: {contato} \n{atendimento}'
             atendimento += f' mas, sem sucesso. Aparentemente o roteador, está com algum conflito nas suas configurações. Verificar no local por favor. Ligar com antecedência.'
 
-        infos.insert_division('Atendimento', width=40, color=green_text)
+        infos.insert_division('Atendimento', 'left', color=green_text, width=35, new_line=1)
         infos.write(atendimento, new_line=1, jump_line=False)
 
         relatorios.show_extra_notes(extra_notes)

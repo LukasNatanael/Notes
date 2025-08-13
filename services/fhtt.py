@@ -36,7 +36,7 @@ def fhtt(notes:dict = {}, extra_notes:list = []):
 
         if not notes_data.serviço:
             menu_serviços.show()
-            serviço = menu_serviços.choseOption[0]
+            serviço = menu_serviços.choseOption[0] - 1
             serviço = lista_serviços[serviço]
         else:
             serviço = notes_data.serviço
@@ -99,13 +99,12 @@ def fhtt(notes:dict = {}, extra_notes:list = []):
         local_atendimento = 'Feito por ligação' if feito_por_ligação else 'Feito por chat'
 
         infos.write(f'{local_atendimento}')
-        infos.new_line()
-        infos.insert_division()
 
         atendimento = f'Contato: { contato } \nCliente entrou em contato solicitando uma { serviço.lower() }{local}. Cliente ciente que a equipe responsável pelos agendamentos entrará em contato para verificar o dia e horário para atendimento. { taxa_serviço } { local_atendimento }. Verificar no local por gentileza. Ligar com antecedência.'.strip()
 
-        infos.write('Atendimento:', new_line=1)
-        infos.write(atendimento)
+        infos.new_line()
+        infos.insert_division('Atendimento', 'left', color=green_text, width=35, new_line=1)
+        infos.write(atendimento, new_line=1, jump_line=False)
 
         relatorios.show_extra_notes(extra_notes)
         infos.show( clear=False )

@@ -33,7 +33,7 @@ def ponto_adicional( notes:dict = {}, extra_notes:list = [] ):
 
         taxa = f'O mesmo está ciente da taxa de instalação no valor de {valor_taxa_do_serviço} + {valor_metragem_do_cabo} a metragem do cabo' if taxa_de_instalação else f'Taxa isenta pois o plano cobre outro ponto'
 
-        feito_por_chat = notes_data.local_atendimento or Validate.confirm('Feito por chat: ', f'{infos}\n')
+        feito_por_chat = notes_data.local_atendimento or Validate.confirm('Feito por chat: ', infos)
         local_atendimento = 'Feito por chat' if feito_por_chat else 'Feito por ligação'
         infos.write(f'{local_atendimento}')
 
