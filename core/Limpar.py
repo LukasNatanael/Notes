@@ -77,6 +77,7 @@ class Limpar:
             self.original_txt = txt.split()
             return self.getFullData(txt)
         else:
+            infos.clear_screen()
             txt = input_multiline('Informe os dados que deseja limpar: ')
             self.original_txt = txt.split()
 
