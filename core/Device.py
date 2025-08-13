@@ -1,9 +1,10 @@
 from mac_vendor_lookup import MacLookup
 from collections       import namedtuple
 from core.Validate     import Validate
-from core.Informations import Informations
+from core.Informations import Informations, Color
 
 DeviceData = namedtuple('DeviceData', ['type', 'model', 'config', 'serial', 'mac'])
+green_text = Color(content_color='green')
 
 class Device:
 
@@ -86,12 +87,15 @@ class Device:
 
     @staticmethod
     def interactive(prompt_message: str = 'Escolha um dos dispositivos abaixo', return_data: bool = False) -> DeviceData:
-        info = Informations()
-        info.write(f'{prompt_message}\n[ 1 ] - Huawei\n[ 2 ] - TP-LINK\n[ 3 ] - Outro\n[ 00 ] - Desconhecido')
-        info.write('Informe um MAC, nome do dispositivo ou escolha uma das opções acima', new_line=1)
-        info.show()
+        infos = Informations()
 
-        user_input = Validate.ask('Dispositivo: ', 'Digite um valor válido!', info)
+        infos.insert_division('Escolha um dos dispositivos abaixo', color=green_text, new_line=2)
+
+        infos.write(f'[ 01 ] - Huawei\n[ 02 ] - TP-LINK\n[ 03 ] - Outro\n[ 00 ] - Desconhecido')
+        infos.write('Informe um MAC, nome do dispositivo ou escolha uma das opções acima', new_line=1)
+        infos.show()
+
+        user_input = Validate.ask('Dispositivo: ', 'Digite um valor válido!', infos)
         model = ''
 
         if user_input.lower() in ['ax2', 'ax2s', 'ax3', 'ax3s']:

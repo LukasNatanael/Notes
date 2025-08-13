@@ -37,7 +37,7 @@ def lentidao(notes:dict = {}, extra_notes:list = []):
         # ──────────────────── Menus ────────────────────
 
         menu_serviços = Menu(
-            MenuOptions( 'Serviço', lista_serviços )
+            MenuOptions( 'Escolha um serviço abaixo', lista_serviços )
         )
 
         menu_dispositivos  = Menu(
@@ -75,7 +75,7 @@ def lentidao(notes:dict = {}, extra_notes:list = []):
         infos.insert_division(f'Dificuldade relatada: {serviço}', color=green_text)
         infos.write(f'{serviço} ocorre em dispositivos: {dispositivo_em_que_ocorre}', new_line=1)
 
-        extra_infos.write('[ 00 ] Não foi possível verificar a luz', new_line=1, jump_line=False)
+        extra_infos.write('[ 00 ] Não foi possível verificar a luz', new_line=1)
 
         # infos.clear_screen()
         luz_ONU = notes_data.luz_ONU or Validate.ask('Luz ONU: ', 'Por favor informe a luz da ONU!', str(infos) + str(extra_infos))
@@ -143,8 +143,6 @@ def lentidao(notes:dict = {}, extra_notes:list = []):
                 procimentos = f'{procimentos} e {aparelhos_reiniciados}.' if procimentos != 'Sem acesso remoto ao roteador' else f'{aparelhos_reiniciados}. Sem acesso remoto ao roteador.'
         else:
             procimentos = ''
-
-        infos.new_line()
 
         dados = Informações( serviço.lower(), dispositivo_em_que_ocorre.lower(), luz_ONU, dispositivo, quedas )
 
